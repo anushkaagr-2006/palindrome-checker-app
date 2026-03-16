@@ -1,34 +1,40 @@
 import java.util.Scanner;
+import java.util.Stack;
+class PalindromeService {
+    public boolean checkPalindrome(String input) {
+        if (input == null) return false;
 
-class UseCase10PalindromeCheckerApp {
+
+        String cleanStr = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        Stack<Character> stack = new Stack<>();
+        for (char c : cleanStr.toCharArray()) {
+            stack.push(c);
+        }
+        StringBuilder reversedStr = new StringBuilder();
+        while (!stack.isEmpty()) {
+            reversedStr.append(stack.pop());
+        }
+
+        return cleanStr.equals(reversedStr.toString());
+    }
+}
+class UseCase11PalindromeCheckerApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        PalindromeService service = new PalindromeService();
 
-        System.out.println("--- UC10: Palindrome Checker (Case & Space Ignored) ---");
-        System.out.print("Enter a string to check: ");
-        String input = scanner.nextLine();
+        System.out.println("=== UC11: OOP-Based Palindrome Checker (Stack Method) ===");
+        System.out.print("Enter text: ");
+        String userInput = scanner.nextLine();
 
-        if (isPalindrome(input)) {
-            System.out.println("Result: \"" + input + "\" is a palindrome!");
+        boolean isPalindrome = service.checkPalindrome(userInput);
+
+        if (isPalindrome) {
+            System.out.println("Result: Success! It is a palindrome.");
         } else {
-            System.out.println("Result: \"" + input + "\" is NOT a palindrome.");
+            System.out.println("Result: Failed. It is not a palindrome.");
         }
 
         scanner.close();
-    }
-
-    public static boolean isPalindrome(String str) {
-        String cleanStr = str.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
-        int left = 0;
-        int right = cleanStr.length() - 1;
-
-        while (left < right) {
-            if (cleanStr.charAt(left) != cleanStr.charAt(right)) {
-                return false;
-            }
-            left++;
-            right--;
-        }
-        return true;
     }
 }
