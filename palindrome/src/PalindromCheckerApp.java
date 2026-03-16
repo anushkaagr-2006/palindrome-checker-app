@@ -13,7 +13,7 @@ class UseCase3PalindromeCheckerApp {
         } else {
             System.out.println("Input text: " + original);
             System.out.println("Reversed text: " + reversed);
-            System.out.println("Is it a Palindrome? : false");
+            System.out.println(" Is it a Palindrome? : false");
         }
     }
 }
