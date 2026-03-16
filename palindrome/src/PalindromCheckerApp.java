@@ -1,25 +1,27 @@
 import java.util.Stack;
+import java.util.Queue;
+import java.util.LinkedList;
 
-class UseCase5PalindromeCheckerApp {
+class UseCase6PalindromeCheckerApp {
 
     public static void main(String[] args) {
-        String text = "madam";
+        String text = "civic";
         Stack<Character> stack = new Stack<>();
+        Queue<Character> queue = new LinkedList<>();
         for (int i = 0; i < text.length(); i++) {
-            stack.push(text.charAt(i));
+            char ch = text.charAt(i);
+            stack.push(ch);
+            queue.add(ch);
         }
-        String reversed = "";
+
+        boolean isPalindrome = true;
         while (!stack.isEmpty()) {
-            reversed = reversed + stack.pop();
+            if (stack.pop() != queue.remove()) {
+                isPalindrome = false;
+                break;
+            }
         }
-        if (text.equals(reversed)) {
-            System.out.println("Input text: " + text);
-            System.out.println("Reversed text: " + reversed);
-            System.out.println("Is it a Palindrome? : true");
-        } else {
-            System.out.println("Input text: " + text);
-            System.out.println("Reversed text: " + reversed);
-            System.out.println("Is it a Palindrome? : false");
-        }
+        System.out.println("Input text: " + text);
+        System.out.println("Is it a Palindrome? : " + isPalindrome);
     }
 }
