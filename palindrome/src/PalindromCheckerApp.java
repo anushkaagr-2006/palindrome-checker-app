@@ -1,68 +1,30 @@
-class Node {
-    char data;
-    Node next;
+import java.util.Scanner;
 
-    Node(char data) {
-        this.data = data;
-        this.next = null;
-    }
-}
-
-class UseCase8PalindromeCheckerApp {
-    public static Node reverse(Node head) {
-        Node prev = null;
-        Node current = head;
-
-        while (current != null) {
-            Node next = current.next;
-            current.next = prev;
-            prev = current;
-            current = next;
-        }
-        return prev;
-    }
-
-    public static boolean isPalindrome(Node head) {
-
-        if (head == null || head.next == null) {
-            return true;
-        }
-        Node slow = head;
-        Node fast = head;
-
-        while (fast.next != null && fast.next.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-        Node secondHalf = reverse(slow.next);
-
-        Node firstHalf = head;
-        Node temp = secondHalf;
-        while (temp != null) {
-            if (firstHalf.data != temp.data) {
-                return false;
-            }
-            firstHalf = firstHalf.next;
-            temp = temp.next;
-        }
-
-        return true;
-    }
+class UseCase9PalindromeCheckerApp {
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-        String text = "madam";
-        Node head = new Node(text.charAt(0));
-        Node current = head;
+        System.out.println("--- Recursive Palindrome Checker ---");
+        System.out.print("Enter a string to check: ");
+        String input = scanner.nextLine();
+        String cleanInput = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
-        for (int i = 1; i < text.length(); i++) {
-            current.next = new Node(text.charAt(i));
-            current = current.next;
+        if (isPalindrome(cleanInput)) {
+            System.out.println("\"" + input + "\" is a palindrome.");
+        } else {
+            System.out.println("\"" + input + "\" is NOT a palindrome.");
         }
 
-        boolean result = isPalindrome(head);
-
-        System.out.println("Input text: " + text);
-        System.out.println("Is it a Palindrome? : " + result);
+        scanner.close();
+    }
+    public static boolean isPalindrome(String str) {
+        if (str.length() <= 1) {
+            return true;
+        }
+        if (str.charAt(0) == str.charAt(str.length() - 1)) {
+            return isPalindrome(str.substring(1, str.length() - 1));
+        }
+        return false;
     }
 }
